@@ -1,13 +1,14 @@
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 
 dotenv.config();
 
-module.exports = {
+export default {
   development: {
     user: process.env.PGUSER,
     password: process.env.PGPASSWORD,
     host: process.env.PGHOST,
     port: process.env.PGPORT,
+    database: process.env.DATABASE,
     dialect: "postgres",
   },
   test: {
