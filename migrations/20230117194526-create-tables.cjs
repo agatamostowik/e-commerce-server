@@ -17,6 +17,7 @@ module.exports = {
       phone_number character varying(255) NOT NULL,
       email character varying(255) NOT NULL,
       password character varying(255) NOT NULL,
+      role character varying(255) NOT NULL,
       updated_at timestamp without time zone DEFAULT now(),
       created_at timestamp without time zone DEFAULT now()
   );`);
@@ -115,15 +116,16 @@ CREATE TABLE "order" (
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.sequelize.query(`DROP TABLE "user";`);
-    await queryInterface.sequelize.query(`DROP TABLE "address";`);
-    await queryInterface.sequelize.query(`DROP TABLE "cart";`);
-    await queryInterface.sequelize.query(`DROP TABLE "cart_product";`);
-    await queryInterface.sequelize.query(`DROP TABLE "discount";`);
+
     await queryInterface.sequelize.query(`DROP TABLE "order";`);
-    await queryInterface.sequelize.query(`DROP TABLE "payment";`);
-    await queryInterface.sequelize.query(`DROP TABLE "product";`);
-    await queryInterface.sequelize.query(`DROP TABLE "user_product";`);
     await queryInterface.sequelize.query(`DROP TABLE "user_payment";`);
+    await queryInterface.sequelize.query(`DROP TABLE "user_address";`);
+    await queryInterface.sequelize.query(`DROP TABLE "payment";`);
+    await queryInterface.sequelize.query(`DROP TABLE "cart_product";`);
+    await queryInterface.sequelize.query(`DROP TABLE "product";`);
+    await queryInterface.sequelize.query(`DROP TABLE "cart";`);
+    await queryInterface.sequelize.query(`DROP TABLE "address";`);
+    await queryInterface.sequelize.query(`DROP TABLE "discount";`);
+    await queryInterface.sequelize.query(`DROP TABLE "user";`);
   },
 };
