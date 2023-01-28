@@ -1,11 +1,11 @@
 # e-commerce-server
 
-GET /api/products
-[x] Pagination
-[x] Show number of items per page
-[x] Sorting by price (asc / desc)
-[x] Sorting by date (asc / desc)
-[x] Sorting by name (asc / desc)
+GET /api/products    
+[x] Pagination       
+[x] Show number of items per page    
+[x] Sorting by price (asc / desc)        
+[x] Sorting by date (asc / desc)   
+[x] Sorting by name (asc / desc)   
 
 GET /api/products/slug
 
