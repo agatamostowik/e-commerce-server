@@ -1,4 +1,4 @@
-import { initApp } from "./src/app.js";
+import { initApp } from "./src/app";
 
 const port = process.env.PORT || 3001;
 

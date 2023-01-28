@@ -1,6 +1,11 @@
+import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
-export const validateGetProductMiddleware = (req, res, next) => {
+export const validateGetProductMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const paramsSchema = z.object({
     slug: z.string().min(1),
   });
