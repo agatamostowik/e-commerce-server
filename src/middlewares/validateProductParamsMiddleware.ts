@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
-export const validateDeleteProductMiddleware = (
+export const validateProductParamsMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction

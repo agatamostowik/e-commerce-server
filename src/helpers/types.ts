@@ -14,6 +14,8 @@ export type NewProduct = Omit<
   "id" | "created_at" | "updated_at" | "slug"
 >;
 
+export type EditedProduct = Partial<NewProduct>;
+
 export type Products = Product[];
 export type Direction = "asc" | "desc";
 export type SortBy = "name" | "price" | "created_at";

@@ -3,11 +3,13 @@ import { sequelize } from "../app";
 import { slugify } from "../helpers/functions";
 import {
   Direction,
+  EditedProduct,
   NewProduct,
   Product,
   Products,
   SortBy,
 } from "../helpers/types.js";
+import _ from "lodash";
 
 export const getProducts = async (
   page: number = 1,
@@ -48,7 +50,40 @@ export const addProduct = async (product: NewProduct) => {
 };
 
 export const deleteProduct = async (productId: number) => {
-  const queryString = `DELETE FROM product WHERE id = ${productId}  RETURNING id;`;
+  const queryString = `DELETE FROM product WHERE id = ${productId} RETURNING id;`;
+  const result = await sequelize.query(queryString, {
+    type: QueryTypes.SELECT,
+  });
+
+  return result[0];
+};
+
+export const editProduct = async (
+  productId: number,
+  product: EditedProduct
+) => {
+  const tempProduct = product.name
+    ? { ...product, slug: slugify(product.name) }
+    : product;
+
+  const modifiedColumns = _.reduce(
+    tempProduct,
+    function (acc, propertyValue, propertyKey) {
+      const value = _.isString(propertyValue)
+        ? `'${propertyValue}'`
+        : propertyValue;
+
+      if (acc.length !== 0) {
+        return acc + `, ${propertyKey} = ${value}`;
+      } else {
+        return acc + `${propertyKey} = ${value}`;
+      }
+    },
+    ""
+  );
+
+  const queryString = `UPDATE product SET ${modifiedColumns} WHERE id = ${productId} RETURNING *;`;
+
   const result = await sequelize.query(queryString, {
     type: QueryTypes.SELECT,
   });

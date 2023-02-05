@@ -4,9 +4,11 @@ import { deleteProductController } from "../controllers/deleteProductController"
 import { getProductController } from "../controllers/getProductController";
 import { getProductsController } from "../controllers/getProductsController";
 import { validateAddProductMiddleware } from "../middlewares/validateAddProductMiddleware";
-import { validateDeleteProductMiddleware } from "../middlewares/validateDeleteProductMiddleware";
+import { validateProductParamsMiddleware } from "../middlewares/validateProductParamsMiddleware";
 import { validateGetProductMiddleware } from "../middlewares/validateGetProductMiddleware";
 import { validateGetProductsMiddleware } from "../middlewares/validateGetProductsMiddleware";
+import { editProductController } from "../controllers/editProductController";
+import { validateUpdateProductBodyMiddleware } from "../middlewares/validateUpdateProductBodyMiddleware";
 
 export const productsRouter = Router();
 
@@ -15,7 +17,12 @@ productsRouter.get("/slug", validateGetProductMiddleware, getProductController);
 productsRouter.post("/", validateAddProductMiddleware, addProductController);
 productsRouter.delete(
   "/:productId",
-  validateDeleteProductMiddleware,
+  validateProductParamsMiddleware,
   deleteProductController
 );
-// productsRouter.put();
+productsRouter.put(
+  "/:productId",
+  validateProductParamsMiddleware,
+  validateUpdateProductBodyMiddleware,
+  editProductController
+);

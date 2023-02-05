@@ -9,7 +9,7 @@ GET /api/products
 [x] Sorting by date (asc / desc)  
 [x] Sorting by name (asc / desc)
 
-GET /api/products/slug
+GET /api/products/:slug
 [x] returning details of the single product
 
 POST /api/products
