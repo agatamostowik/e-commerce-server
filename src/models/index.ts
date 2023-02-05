@@ -1,20 +1,13 @@
 import { QueryTypes } from "sequelize";
-import { sequelize } from "../app.js";
-
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  stock: number;
-  description: string;
-  created_at: Date;
-  updated_at: Date;
-  slug: string;
-};
-
-type Products = Product[];
-export type Direction = "asc" | "desc";
-export type SortBy = "name" | "price" | "created_at";
+import { sequelize } from "../app";
+import { slugify } from "../helpers/functions";
+import {
+  Direction,
+  NewProduct,
+  Product,
+  Products,
+  SortBy,
+} from "../helpers/types.js";
 
 export const getProducts = async (
   page: number = 1,
@@ -41,4 +34,15 @@ export const getProduct = async (slug: string) => {
   const product = response[0];
 
   return product;
+};
+
+export const postProduct = async (product: NewProduct) => {
+  const slug = slugify(product.name);
+  const queryToProductTable = `INSERT INTO product ("name","price", "stock", "description", "slug") VALUES ('${product.name}', ${product.price}, ${product.stock}, '${product.description}', '${slug}') RETURNING *;`;
+
+  const response = await sequelize.query<Product>(queryToProductTable, {
+    type: QueryTypes.SELECT,
+  });
+
+  return response[0];
 };

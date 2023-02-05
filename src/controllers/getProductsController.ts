@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { Direction, getProducts, SortBy } from "../models/index";
+import { Direction, SortBy } from "../helpers/types";
+import { getProducts } from "../models/index";
 
 export const getProductsController = async (req: Request, res: Response) => {
   const page: number = parseInt(req.query.page as string);
