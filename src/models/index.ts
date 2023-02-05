@@ -36,7 +36,7 @@ export const getProduct = async (slug: string) => {
   return product;
 };
 
-export const postProduct = async (product: NewProduct) => {
+export const addProduct = async (product: NewProduct) => {
   const slug = slugify(product.name);
   const queryToProductTable = `INSERT INTO product ("name","price", "stock", "description", "slug") VALUES ('${product.name}', ${product.price}, ${product.stock}, '${product.description}', '${slug}') RETURNING *;`;
 
@@ -45,4 +45,13 @@ export const postProduct = async (product: NewProduct) => {
   });
 
   return response[0];
+};
+
+export const deleteProduct = async (productId: number) => {
+  const queryString = `DELETE FROM product WHERE id = ${productId}  RETURNING id;`;
+  const result = await sequelize.query(queryString, {
+    type: QueryTypes.SELECT,
+  });
+
+  return result[0];
 };
